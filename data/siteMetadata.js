@@ -5,7 +5,7 @@ const siteMetadata = {
   headerTitle: 'Gone with the wind 🌬️🍃',
   description: 'A breathing space from it all and haven for my (perhaps biased) experiences.',
   language: 'en-us',
-  theme: 'system', // system, dark or light
+  theme: 'light',
   siteUrl: 'https://deantarisai.me',
   siteRepo: 'https://github.com/prjctimg',
   socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,
@@ -18,11 +18,11 @@ const siteMetadata = {
 
   instagram: 'https://www.instagram.com/deantarie',
   locale: 'en-US',
-  // set to true if you want a navbar fixed to the top
-  stickyNav: false,
+
+  stickyNav: true,
   analytics: {
     googleAnalytics: {
-      googleAnalyticsId: '', // e.g. G-XXXXXXX
+      googleAnalyticsId: 'G-XWP9RJYZHC',
     },
   },
 }
