@@ -137,6 +137,7 @@ export const Authors = defineDocumentType(() => ({
     email: { type: 'string' },
     twitter: { type: 'string' },
     linkedin: { type: 'string' },
+    facebook: { type: 'string' },
     github: { type: 'string' },
     layout: { type: 'string' },
   },
