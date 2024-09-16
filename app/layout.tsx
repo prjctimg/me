@@ -2,7 +2,6 @@ import "css/tailwind.css";
 import "pliny/search/algolia.css";
 import "remark-github-blockquote-alert/alert.css";
 import React from "react";
-import { Space_Grotesk } from "next/font/google";
 import { Analytics, AnalyticsConfig } from "pliny/analytics";
 import { SearchProvider, SearchConfig } from "pliny/search";
 import Header from "@/components/Header";
@@ -11,12 +10,6 @@ import Footer from "@/components/Footer";
 import siteMetadata from "@/data/siteMetadata";
 import { ThemeProviders } from "./theme-providers";
 import { Metadata } from "next";
-
-const space_grotesk = Space_Grotesk({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-space-grotesk",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteMetadata.siteUrl),
@@ -68,9 +61,11 @@ export default function RootLayout({
   return (
     <html
       lang={siteMetadata.language}
-      className={`${space_grotesk.variable} scroll-smooth`}
+      className={`scroll-smooth`}
       suppressHydrationWarning
     >
+      <meta name="author" content="Dean Tarisai" />
+      <meta name="author" content="ディーン・タリサイ" />
       <link
         rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2210 0 100 100%22><text y=%22.90em%22 font-size=%2290%22>🌬</text></svg>"
