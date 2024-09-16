@@ -1,6 +1,7 @@
 #! /usr/bin/bash
 
 
+# function to replace whitespace with '_'
 _encode() {
   local string="$1"
   echo "${string//[[:space:]]/_}" | tr 'A-Z' 'a-z'
@@ -19,10 +20,8 @@ read -p "Tags 🏷 (comma-separated): " tags
 read -p "Canonical url🔗: " canonicalUrl
 
 
-# Customize it to launch vscode when I'm on a compatible machine
 
-
-# Create file name in kebab case
+# create filename from the passed in title
 filename=$(_encode "$title").mdx;
 baseUrl="https://deantarisai.me/blog/";
 
@@ -34,13 +33,15 @@ date: $date
 canonicalUrl: "$baseUrl$(_encode "$canonicalUrl")"
 draft: true
 tags: [$tags]
-layout: PostSimple
+layout: PostLayout
+summary: $summary
 ---
 EOF
 )
 
 
-# Create file in docs directory
+# direct the output to a file at the path stored by $filename
 echo "$frontmatter" > data/blog/"$filename"
 
-git add . && git commit -a -m "Created a new post: $title" & echo "New post created! $title"
+# track the file and make a commit. This last part is opinionated
+git add . && git commit -a -m "New✨ post draft - $title  🖋." & echo "New✨ template for the post - $title. written 🖋."
