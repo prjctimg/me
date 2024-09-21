@@ -33,7 +33,7 @@ date: $date
 canonicalUrl: "$baseUrl$(_encode "$canonicalUrl")"
 draft: true
 tags: [$tags]
-layout: PostLayout
+layout: PostSimple
 summary: $summary
 ---
 EOF
