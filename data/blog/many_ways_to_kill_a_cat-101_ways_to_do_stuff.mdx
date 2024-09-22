@@ -1,8 +1,70 @@
 ---
-title: Many ways to kill a cat-101 ways to do stuff
+title: You Don't Know JavaScript
 date: 2024-09-16
 canonicalUrl: "https://deantarisai.me/blog/101_ways_to_do_stuff_in_js"
 draft: true
-tags: [javascript,tips]
-layout: PostLayout
+tags: [javascript]
+summary: Random stuff you may (or may not) know about the language.
+layout: PostSimple
 ---
+
+JavaScript has many interesting behaviours and different ways of doing the same thing, with slight nuances in how the alternate syntaxes work. This makes it flexible, so flexible that you may waste a significant amount of your life refactoring syntax just to comply to different tools/libraries you may use. For example, certain tools only want a certain symbol exported as the default not named export:
+
+
+```js
+
+// Default export
+export default async(){}
+
+
+// named export. Won't work on certain react based tools 
+// if its loader expects a default export
+
+export async function func(){}
+
+
+```
+
+Which really sucks because there are more deadlier bugs that require our attention than silly export mismatches. That's one thing that made it so hard for me to learn JS because I was trying to learn the language via a framework.
+
+In this post, I'll share some alternative syntaxes and show the tradeoffs/differences. Due to the subtle differences in behaviour in alternate syntaxes it's very easy to code bugs that will only popup in the edge cases you didn't know exist when you refactored the declarations from `var` to `const`.
+
+
+
+## Array destructuring
+
+Variable declarations allow us to tell our program to store values which we can retrieve later when needed in the program. One of my favourite way of doing this *array destructuring*:
+
+
+```js
+
+var [a,b,c] = [1,2,3]
+
+```
+
+The variables `a`,`b`,`c` are assigned the values in the array on the right side of the assignment operator. It's really useful if you're dealing with an array of known length and want to assign each value in that array at one goal. I sorta abuse this syntax and put literally anything in there (including functions, don't mention readability please).
+
+I don't know if there's any perfomance tradeoffs with this.
+
+## Immediately Invoked Function Expression (IIFE)
+
+As the name implies, this function is called as soon as it is defined. It's useful if you want to write a once off function that, for example computes the value of a key in an object.
+
+```js
+const obj = {
+  name: "ディーン・タリサイ",
+  secret: (() => Math.random() * new Date().getMilliseconds())(),
+};
+
+console.log(obj);
+
+```
+
+In the above example, the `secret` key of the `obj` object will have a dynamic value that is unique everytime we access it. So one use case would be to create values that are computed 'on the fly'. 
+
+## Disjunction, conjuction and negation
+
+Big words for logical OR `||` , AND `&&` and NOT `!` respectively, these symbols can act as ternary operators or `if..else` statements:
+
+
+```
