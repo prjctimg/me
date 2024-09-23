@@ -64,7 +64,66 @@ In the above example, the `secret` key of the `obj` object will have a dynamic v
 
 ## Disjunction, conjuction and negation
 
-Big words for logical OR `||` , AND `&&` and NOT `!` respectively, these symbols can act as ternary operators or `if..else` statements:
+Big words for logical OR `||` , AND `&&` and NOT `!` respectively, these symbols can act as ternary operators or `if..else` statements if combined. 
 
+
+```
+
+const func = (x)=> typeof x === 'number' && `The number is ${x}` || `The value is ${x}`
+
+
+```
+
+What the Javascript engine does is follow the order of precedence, that is:
+
+- `!`
+- `&&`
+- `||`
+
+ In our case, this means that the AND expression is evaluated first so it would look like this:
+
+
+```js
+
+const func = (x)=> (typeof x === 'number' && `The number is ${x}`) || `The value is ${x}`
+
+```
+
+> #### Tip
+>
+> We can enforce our desired order of precedence by wrapping the expression we want to be evaluated first in parenthese. This will enforce the expression to be evaluated first following the PEMDAS order of precedence. 
+> 
+> _Source:_ [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators)
+
+If we run our function it will work as expected:
+
+```js
+
+console.log(func(5))
+
+// The number is 5
+
+
+console.log(func('ディーン・タリサイ'))
+
+
+// The value is ディーン・タリサイ
+
+```
+
+However if one of your expressions throws (an error or exception, duh 🙄), it may break the program by immediately halting the execution and throwing the unhandled exception. Use this cautiously (or not at all).
+
+
+## Nullish coalescing
+
+For the lazier ones, we can use the `??` operator which returns the expression on the right side
+
+
+```js
+
+const func = (x) => x ?? 'The default value'
+
+console.log(func(void 0))
+console.log(func('This will be printed'))
 
 ```
