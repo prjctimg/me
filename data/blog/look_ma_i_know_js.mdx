@@ -70,7 +70,7 @@ console.log(obj);
 
 In the above example, the `secret` key of the `obj` object will have a dynamic value that is unique everytime we access it. So one use case would be to create values that are computed 'on the fly'. 
 
-## Disjunction, conjuction and negation
+## Disjunction and conjuction
 
 Big words for logical OR `||` ,and  AND `&&` (pun intended) respectively, these symbols can act as a makeshift ternary operator or `if..else` statement if combined:
 
@@ -120,22 +120,28 @@ console.log(func('ディーン・タリサイ'))
 
 ## Nullish coalescing
 
-For the lazier ones, we can use the `??` operator which returns the expression on the right side
+For the lazier ones, we can use the `??` operator which returns the expression on the right side if the one on the left is falsy. 
+
+Very useful for defining default values in a concise way.
 
 
 ```js
-
 const func = (x) => x ?? 'The default value'
 
 console.log(func(void 0))
+
+// The default value
+
 console.log(func('This will be printed'))
 
+// This will be printed
 ```
 
+> As you probably can see, handling falsy values is a very big fuss in the language.
 
 ## Spread operator
 
-The spread or `...` allows us to expand elements of an iterable like an `Array`. This is useful if you don't know the exact length of our iterable or wish to just unpack the iterable into elements:
+The spread operator a.k.a `...` allows us to expand elements of an iterable like an `Array`. This is useful if we don't know the exact length of our iterable or wish to just unpack the iterable into elements:
 
 
 ```js
@@ -151,16 +157,20 @@ console.log([zero,one,two,three])
 // [0,1,2,3]
 ```
 
+Of course, the above syntax is redundant because we could have just passed the array as it is and it would work. 
+But then again, I'm not here to teach 'good practices' (whatever that is 👀).
+
 > [!TIP]
 >
 > Also check out rest parameters. The magic behind this language construct is similar to the spread operator but just a different context. In this case, rest parameters allow us to specify an indefinite number of arguments as an array. 
+
 
 
 ## The `in` operator
 
 The `in` operator checks if a property exists in an object in which case it will return true or false if otherwise.
 
-Let's say you wish to execute some code if a certain property exists in an object. The following example will only work properly if the extremum is a property of the `Math` object. Whichever argument proves falsy will log the error associated with it:
+Let's say you wish to execute some code if a certain property exists in an object. The following example will only work properly if the `extremum` is a property of the `Math` object like `min` or `max`. Whichever argument proves falsy will log the error associated with it:
 
 ```js
 const fn = (extremum, nums) => extremum in Math ?
@@ -174,13 +184,16 @@ console.log(fn('max',[9,5,2,7,0]))
 
 // 7... Just kidding its 9 😄
 ```
+> [!tip]
+>
+> In case you hadn't guessed, it's also implemented un the `for...in` loop which iterates over an objects own enumerable keys.
 
 
 ## `async...await`
 
 When we mark a function as `async` it means we're expecting it to return our value wrapped in a `Promise`. 
 
-The `await` keyword tells JavaScript to await for the function to return, in this case our function is `fetch`. 
+The `await` keyword tells JavaScript to wait for the function to return, in this case our function is `fetch`. 
 
 Mostly you'll find these keywords on operations that involve network requests or computationally intense routines that could take a while to complete.
 Because we can't afford to block the main thread, asynchronous functions can execute without halting the entire program (contrary to synchronous programming). Here's the basic syntax.
@@ -196,25 +209,30 @@ return res.json()
 
 > [!caution]
 >
-> At the time of writing, you can only use the `await` keyword inside an async function otherwise you'll get a syntax error.
+> At the time of writing, you can only use the `await` keyword inside an `async` function otherwise you'll get a syntax error.
 
-## Optional chaining `?.`
+## Optional chaining with `?.`
 
-Remember when accessing an `undefined` property on an object used to throw a violent error ? 
+Remember when accessing an `undefined` property on an object used to throw a violent error ? Well, thanks to optional chaining we can now only attempt to access a property if it exists on our object. 
 
-Well, thanks to optional chaining we can now only attempt to access a property if it exists on our object. This allows our program to fail gracefully by returning `undefined` instead of throwing an error which immediately halts our program (if the error is not handled, of course):
+This allows our program to fail gracefully by returning `undefined` instead of throwing an error which immediately halts our program (if the error is not handled, of course):
 
 ```js
 const obj = {
   value:'Hello',
 }
 
-// this fails gently
+// this fails gently by returning undefined
 console.log(obj?.Value)
 
 // this throws a tantrum
 console.log(obj.Value)
 ```
+
+> [!tip]
+>
+> This is useful when accessing deep nested objects in (like a JSON response for example) where certain properties may not be defined.
+
 
 ## What `instanceof` an object  is this ?
 
