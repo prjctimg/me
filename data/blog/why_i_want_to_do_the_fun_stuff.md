@@ -2,7 +2,7 @@
 title: Going low level - The darkside of programming 🌑
 date: 2024-10-5
 draft: true
-tags: [rant]
+tags: []
 layout: PostSimple
 summary: Our forerunners did it, why can't we ?
 ---

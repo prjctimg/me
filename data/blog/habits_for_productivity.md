@@ -1,11 +1,12 @@
 ---
 title: Habits for productivity
 date: 2024-09-14
-canonicalUrl: "https://deantarisai.me/blog/habits_for_productivity"
+canonicalUrl: https://deantarisai.me/blog/habits_for_productivity
 draft: false
 layout: PostSimple
 summary: The guide for lazy overachievers
-tags: [tips]
+tags:
+  - tips
 ---
 
 There are times when I find myself not performing at my best, not because of burnouts ,but being simply overwhelmed. Now, what do I mean by being overwhelmed ? In my context, being overwhelmed means:
