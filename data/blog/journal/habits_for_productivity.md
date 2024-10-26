@@ -6,7 +6,7 @@ draft: false
 layout: PostSimple
 summary: The guide for lazy overachievers
 tags:
-  - tips
+  - journal
 ---
 
 There are times when I find myself not performing at my best, not because of burnouts ,but being simply overwhelmed. Now, what do I mean by being overwhelmed ? In my context, being overwhelmed means:
