@@ -1,0 +1,106 @@
+#! /usr/bin/bash
+
+# function to replace whitespace with '_'
+_encode() {
+    local string="$1"
+    echo "${string//[[:space:]]/_}" | tr "[:upper]"
+
+}
+
+# Define the options
+topics=("Color in art 🎨" "Free Open Source Software 🫶" "Rust 🦀" "TypeShit 💩" "Shell 🐚" "Concepts in art 🧑‍🎨" "Math in art 🧮" "SVG in art 🔳" "My journal📔")
+
+# Present the options
+PS3="Choose an option: "
+
+# Get current date in YYYY-MM-DD format
+date=$(date +%Y-%m-%d)
+
+# Prompt for frontmatter fields
+printf "
+  ________                               .__  __  .__        __  .__              __      __.__            .___
+ /  _____/  ____   ____   ____   __  _  _|__|/  |_|  |__   _/  |_|  |__   ____   /  \    /  \__| ____    __| _/
+/   \  ___ /  _ \ /    \_/ __ \  \ \/ \/ /  \   __\  |  \  \   __\  |  \_/ __ \  \   \/\/   /  |/    \  / __ | 
+\    \_\  (  <_> )   |  \  ___/   \     /|  ||  | |   Y  \  |  | |   Y  \  ___/   \        /|  |   |  \/ /_/ | 
+ \______  /\____/|___|  /\___  >   \/\_/ |__||__| |___|  /  |__| |___|  /\___  >   \__/\  / |__|___|  /\____ | 
+        \/            \/     \/                        \/             \/     \/         \/          \/      \/ 
+
+\n\n\n"
+
+subdir=''
+
+read -rp "What's the title🖋 ?: " title
+read -rp "Summarise this post's content 📜:" summary
+read -rp "What category(ies) does it belong to 🏷 (comma-separated): " tags
+
+PS3="Choose an option: "
+select option in "${topics[@]}"; do
+    case $option in
+    "Shell 🐚")
+        subdir='langs/shell'
+        # Add your code for Option 1 here
+        ;;
+    "SVG in art 🔳")
+        subdir='art/svg'
+        # Add your code for Option 1 here
+        ;;
+    "My journal📔")
+        subdir='journal'
+        ;;
+    "Concepts in art 🧑‍🎨")
+        subdir='art/concepts'
+        ;;
+    "Math in art 🧮")
+        subdir='art/math'
+        ;;
+    "Color in art 🎨")
+        subdir='art/color/'
+        ;;
+    "Free Open Source Software 🫶")
+        subdir='foss'
+        ;;
+    "Rust 🦀")
+        subdir='langs/rust'
+
+        ;;
+    "TypeShit 💩")
+        subdir='langs/ts'
+
+        break
+        ;;
+    *)
+        echo "Invalid option"
+        ;;
+    esac
+done
+
+# create filename from the passed in title
+filename=$(_encode "$title").md
+
+# Create frontmatter
+frontmatter=$(
+    cat <<EOF
+---
+title: $title
+date: $date
+draft: true
+tags: [$tags]
+layout: PostSimple
+summary: $summary
+---
+EOF
+)
+
+# direct the output to a file at the path stored by $filename
+echo "$frontmatter" >/home/me/data/blog/"$subdir"/"$filename"
+
+# track the file and make a commit. This last part is opinionated
+git add . && git commit -a -m "New✨ post draft - $title  🖋." &
+echo "
+__________                       .__           __                                   .__           __                   
+\______   \  ____ _______  ______|__|  _______/  |_   ____    ____    ____   ____   |__|  ______ |  | __  ____  ___.__.
+ |     ___/_/ __ \\_  __ \/  ___/|  | /  ___/\   __\_/ __ \  /    \ _/ ___\_/ __ \  |  | /  ___/ |  |/ /_/ __ \<   |  |
+ |    |    \  ___/ |  | \/\___ \ |  | \___ \  |  |  \  ___/ |   |  \\  \___\  ___/  |  | \___ \  |    < \  ___/ \___  |
+ |____|     \___  >|__|  /____  >|__|/____  > |__|   \___  >|___|  / \___  >\___  > |__|/____  > |__|_ \ \___  >/ ____|
+                \/            \/          \/             \/      \/      \/     \/           \/       \/     \/ \/     
+"
