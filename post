@@ -3,7 +3,9 @@
 # function to replace whitespace with '_'
 _encode() {
     local string="$1"
-    echo "${string//[[:space:]]/_}" | tr "[:upper]"
+    # shellcheck disable=SC2019
+    # shellcheck disable=SC2018
+    echo "${string//[[:space:]]/_}" | tr 'A-Z' 'a-z'
 
 }
 
@@ -33,35 +35,40 @@ read -rp "What's the title🖋 ?: " title
 read -rp "Summarise this post's content 📜:" summary
 read -rp "What category(ies) does it belong to 🏷 (comma-separated): " tags
 
-PS3="Choose an option: "
+PS3="What's the topic, $(whoami) ?"
 select option in "${topics[@]}"; do
     case $option in
     "Shell 🐚")
         subdir='langs/shell'
-        # Add your code for Option 1 here
+        break
         ;;
     "SVG in art 🔳")
         subdir='art/svg'
-        # Add your code for Option 1 here
+        break
         ;;
     "My journal📔")
         subdir='journal'
+        break
         ;;
     "Concepts in art 🧑‍🎨")
         subdir='art/concepts'
+        break
         ;;
     "Math in art 🧮")
         subdir='art/math'
+        break
         ;;
     "Color in art 🎨")
         subdir='art/color/'
+        break
         ;;
     "Free Open Source Software 🫶")
         subdir='foss'
+        break
         ;;
     "Rust 🦀")
         subdir='langs/rust'
-
+        break
         ;;
     "TypeShit 💩")
         subdir='langs/ts'
@@ -92,7 +99,7 @@ EOF
 )
 
 # direct the output to a file at the path stored by $filename
-echo "$frontmatter" >/home/me/data/blog/"$subdir"/"$filename"
+echo "$frontmatter" >/home/"$(whoami)"/me/data/blog/"$subdir"/"$filename"
 
 # track the file and make a commit. This last part is opinionated
 git add . && git commit -a -m "New✨ post draft - $title  🖋." &
