@@ -35,7 +35,7 @@ read -rp "What's the title🖋 ?: " title
 read -rp "Summarise this post's content 📜:" summary
 read -rp "What category(ies) does it belong to 🏷 (comma-separated): " tags
 
-PS3="What's the topic, $(whoami) ?"
+PS3="What's the topic, @$(whoami)"
 select option in "${topics[@]}"; do
     case $option in
     "Shell 🐚")
@@ -104,10 +104,11 @@ echo "$frontmatter" >/home/"$(whoami)"/me/data/blog/"$subdir"/"$filename"
 # track the file and make a commit. This last part is opinionated
 git add . && git commit -a -m "New✨ post draft - $title  🖋." &
 echo "
-__________                       .__           __                                   .__           __                   
-\______   \  ____ _______  ______|__|  _______/  |_   ____    ____    ____   ____   |__|  ______ |  | __  ____  ___.__.
- |     ___/_/ __ \\_  __ \/  ___/|  | /  ___/\   __\_/ __ \  /    \ _/ ___\_/ __ \  |  | /  ___/ |  |/ /_/ __ \<   |  |
- |    |    \  ___/ |  | \/\___ \ |  | \___ \  |  |  \  ___/ |   |  \\  \___\  ___/  |  | \___ \  |    < \  ___/ \___  |
- |____|     \___  >|__|  /____  >|__|/____  > |__|   \___  >|___|  / \___  >\___  > |__|/____  > |__|_ \ \___  >/ ____|
-                \/            \/          \/             \/      \/      \/     \/           \/       \/     \/ \/     
+     ____.                 __        .___         .__   __       
+    |    | __ __   _______/  |_    __| _/  ____   |__|_/  |_     
+    |    ||  |  \ /  ___/\   __\  / __ |  /  _ \  |  |\   __\    
+/\__|    ||  |  / \___ \  |  |   / /_/ | (  <_> ) |  | |  |      
+\________||____/ /____  > |__|   \____ |  \____/  |__| |__|   /\ 
+                      \/              \/                      \/ 
+
 "
