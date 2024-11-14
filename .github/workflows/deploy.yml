@@ -39,6 +39,6 @@ jobs:
         with:
           project: "deantarisai"
           entrypoint: "jsr:@deno/nextjs-start"
-          root: ""
-          
+          root: "."
+          include: .next, public
           
