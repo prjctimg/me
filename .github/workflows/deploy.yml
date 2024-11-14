@@ -32,13 +32,13 @@ jobs:
         run: "yarn install"
 
       - name: Build step
-        run: "yarn run build"
+        run: "yarn build"
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
           project: "deantarisai"
           entrypoint: "jsr:@deno/nextjs-start"
-          root: "."
+          root: ""
           
           
